@@ -48,16 +48,33 @@ view: async function (req, res) {
     return res.view('person/view', { person: model });
   
   },
+
 // action - delete 
 delete: async function (req, res) {
 
     if (req.method == "GET") return res.forbidden();
 
-    var models = await Person.destroy(req.params.id).fetch();
+    var models = await realestate.destroy(req.params.id).fetch();
 
     if (models.length == 0) return res.notFound();
 
-    return res.ok("Person Deleted.");
+    return res.ok("The real estate Deleted.");
+
+},
+home: async function (req, res) {
+
+    var models = await realestate.find();
+    return res.view('realestate/home', { realestate: models });
+    
+},
+
+details: async function (req, res) {
+
+    var model = await realestate.findOne(req.params.id);
+
+    if (!model) return res.notFound();
+
+    return res.view('realestate/details', { model: model });
 
 },
 // action - update
