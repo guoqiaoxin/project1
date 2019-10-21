@@ -1,6 +1,18 @@
-<!--index.ejs-->
-<table class="table">
-    <% persons.forEach( function(model) { %>
-        <tr><td><%= model.name %></td><td><%= model.age %></td></tr>
-    <% }); %>
-</table>
+<!--home.ejs-->
+<div class="row">
+  
+    <% realestate.forEach( function(model) { %>
+   <div id="div01" class="card col-xl-6"> 
+            <h2><a href="/realestate/details/<%= model.id%>"><%= model.title%></a></h2><br>
+         <div>
+           <div ><img src="<%= model.ImageURL%>" style="float:left;margin-right: 20px;"  width="200" height="200"/> </div> 
+           <div  > <ul class='list-group' > 
+           <li class='list-group-item'> <b>Estate:</b><%= model.Estate%></li>
+           <li class='list-group-item'> <b>Estate:</b><%= model.GrossArea%> sq feet</li>
+           <li class='list-group-item'> <b> Rent:</b>$<%= model.Rent%></li>
+           </ul>
+           </div>
+           </div>
+        </div>
+      <% }); %>
+</div>

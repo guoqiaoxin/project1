@@ -1,0 +1,21 @@
+<!--details.ejs-->
+<div id="div01" class="card" >
+    <div style="margin: 30px 30px;">
+       <h2><%= model.title%></h2>
+    
+   <div >
+      <div ><img src="<%= model.ImageURL%>" style="float:left;margin-right: 20px;"  width="500" height="300"/> </div> 
+      <div  > 
+          <ul class='list-group' > 
+             <li class='list-group-item'> <b>Estate:</b><%= model.Estate%></li>
+             <li class='list-group-item'> <b>Gross Area:</b><%= model.GrossArea%> sq feet</li>
+             <li class='list-group-item'> <b> Rent:</b>$<%= model.Rent%></li>
+             <li class='list-group-item'> <b> Bedrooms:</b><%= model.Bedroom%></li>
+             <li class='list-group-item'> <b> Expected Tenants:</b><%= model.ExpectedTenant%></li>
+             <li class='list-group-item'> <b> Created:</b><%= new Date(model.CreateTime).getFullYear()%></li>
+             <li class='list-group-item'> <b> Updated:</b><%= model.UpdateTime%></li>
+           </ul>
+      </div>
+   </div>
+ </div>
+</div>

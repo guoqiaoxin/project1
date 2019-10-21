@@ -1,0 +1,7 @@
+<table class="table">
+    <% realestate.forEach( function(model) { %>
+        
+          <tr><td><%= model.id%></td><td><%= model.title%></td><td><%= model.Estate %></td><td style="color:rgb(42, 42, 204)" ><a href="/realestate/update/<%= model.id%>">Edit</a></td></tr>
+        
+    <% }); %>
+</table>

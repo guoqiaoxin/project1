@@ -11,44 +11,62 @@ module.exports = {
 create: async function (req, res) {
 
     if (req.method == "GET")
-        return res.view('person/create');
+        return res.view('realestate/create');
 
-    if (!req.body.Person)
+    if (!req.body.realestate)
         return res.badRequest("Form-data not received.");
 
-    await Person.create(req.body.Person);
+    await realestate.create(req.body.realestate);
 
     return res.ok("Successfully created!");
-
 },
-// json function
 json: async function (req, res) {
 
-    var persons = await Person.find();
+    var realestate = await realestate.find();
 
-    return res.json(persons);
+    return res.json(realestate);
 },
+admin: async function (req, res) {
 
-
-// action - index
-index: async function (req, res) {
-
-    var models = await Person.find();
-    return res.view('person/index', { persons: models });
+    var models = await realestate.find();
+    return res.view('realestate/admin', { realestate: models });
     
 },
-// action - view
-view: async function (req, res) {
+//action - update
+update: async function (req, res) {
 
-    var model = await Person.findOne(req.params.id);
-  
-    console.log("in view action:",model);
-    if (!model) return res.notFound();
-  
-    return res.view('person/view', { person: model });
-  
-  },
+    if (req.method == "GET") {
 
+        var model = await realestate.findOne(req.params.id);
+
+        if (!model) return res.notFound();
+
+        return res.view('realestate/update', { realestate: model });
+
+    } else {
+
+        if (!req.body.realestate)
+            return res.badRequest("Form-data not received.");
+
+        var models = await realestate.update(req.params.id).set({
+            title: req.body.realestate.title,
+            Estate: req.body.realestate.Estate,
+            GrossArea: req.body.realestate.GrossArea,
+            Rent: req.body.realestate.Rent,
+            ImageURL: req.body.realestate.ImageURL,
+            Bedroom: req.body.realestate.Bedroom,
+            ExpectedTenant: req.body.realestate.ExpectedTenant,
+            HighlightedProperty:req.body.realestate.HighlightedProperty
+
+        }).fetch();
+
+        if (models.length == 0) return res.notFound();
+
+        return res.ok("Record updated");
+
+    }
+    
+},  
 // action - delete 
 delete: async function (req, res) {
 
@@ -124,7 +142,7 @@ search: async function (req, res) {
  
      } if (isNaN(qbedroom)) {
  
-         var models = await Dhnrealestate.find({
+         var models = await realestate.find({
             where: {title: { contains: qtitle}},
              sort: 'id'
          });
@@ -153,7 +171,7 @@ search: async function (req, res) {
          skip: numOfItemsPerPage * qPage
      });
  
-     var numOfPage = Math.ceil(await Dhnrealestate.count() / numOfItemsPerPage);
+     var numOfPage = Math.ceil(await realestate.count() / numOfItemsPerPage);
  
      return res.view('realestate/search', { realestate: models, count: numOfPage });
      
